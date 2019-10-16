@@ -12,6 +12,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+p {
+  margin: 0;
+}
 
 
 
@@ -76,7 +79,17 @@ code {
 
 .comment {
   display: flex;
-  align-items: center;
-  height: 60px;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 10px;
   border-bottom: 1px solid #e6e6e6;
+}
+.comment .comment-user {
+  margin-right: 5px;
+  color: #00a3cf;
+}
+.comment .comment-time {
+  display: flex;
+  align-self: flex-end;
 }

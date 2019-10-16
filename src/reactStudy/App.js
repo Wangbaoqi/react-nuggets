@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
+
+
+
+
 import logo from './logo.svg';
 import './App.css';
+
+import CommentApp from '../reactStudy/comment/CommentApp'
+
 
 
 
@@ -39,6 +46,19 @@ const ReactFooter = () => {
     </div>
   );
 }
+
+
+const ReactContainer = (props) => {
+  console.log(props.children, 'props.children');
+  
+  return (
+    <div className='container'>
+      {props.children}
+    </div>
+  );
+}
+
+
 
 
 
@@ -97,10 +117,22 @@ class LikeButton extends Component {
 
 export class App extends Component {
 
+  constructor() {
+    super()
+    this.state = {
+      containerColor: 'red'
+    }
+  }
   // 合成时间不能使用到 自定义组件中 <Header onClick>
   tapClick(e) {
     console.log(e.target, 'click is happend');
   }
+
+  
+  componentDidMount() {
+    // this.input.focus()
+  }
+  
 
   render() {
 
@@ -141,6 +173,20 @@ export class App extends Component {
         <LikeButton />
 
         {navItems}
+
+        <input type="text" ref={(input) => this.input = input}/>
+
+        <ReactContainer>
+          <div className='container0' style={{fontSize: '20px', color: this.state.containerColor}}>container0</div>
+          <div className='container1'></div>
+
+          <ReactContent />
+        </ReactContainer>
+
+
+
+        {/* 评论功能 */}
+        <CommentApp/>
       </div>
     );
   }
