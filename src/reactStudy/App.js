@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 
-
+import PropTypes from 'prop-types';
 
 
 import logo from './logo.svg';
 import './App.css';
 
 import CommentApp from '../reactStudy/comment/CommentApp'
+
 
 
 
@@ -20,14 +21,27 @@ const ReactTitle = () => {
   )
 }
 
-const ReactNav = (props) => {
-  const { value } = props;
-  return (
-    <div className='nav'>
-      {value}
-    </div>
-  );
+
+
+class ReactNav extends Component {
+
+  // 子组件中获取 context的值 必须声明 contextTypes
+  static contextTypes = {
+    theme: PropTypes.string
+  }
+
+  render() {
+    const { value } = this.props;
+    return (
+      <div className='nav'>
+        {value}
+        <span>nav Context: {this.context.theme}</span>
+      </div>
+    );
+  }
 }
+
+
 
 
 const ReactContent = () => {
@@ -110,12 +124,13 @@ class LikeButton extends Component {
 
 
 
-
-
-
-
-
 export class App extends Component {
+
+  // 验证context的类型
+  static childContextTypes = {
+    theme: PropTypes.string
+  }
+
 
   constructor() {
     super()
@@ -123,6 +138,13 @@ export class App extends Component {
       containerColor: 'red'
     }
   }
+
+  // 父组件中声明 context 的值
+  getChildContext() {
+    return { theme: this.state.containerColor }
+  }
+
+
   // 合成时间不能使用到 自定义组件中 <Header onClick>
   tapClick(e) {
     console.log(e.target, 'click is happend');
@@ -131,6 +153,9 @@ export class App extends Component {
   
   componentDidMount() {
     // this.input.focus()
+    this.setState({
+      containerColor: 'green'
+    })
   }
   
 
