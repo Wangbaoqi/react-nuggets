@@ -3,10 +3,61 @@ import ReactDOM from 'react-dom';
 import './reactStudy/index.css';
 import App from './reactStudy/App';
 
+import { appendRoot, render } from './react-redux/index'
+
 import CommentApp from './reactStudy/comment/CommentApp'
 
 
 import * as serviceWorker from './reactStudy/serviceWorker';
+
+
+
+// create reducer 
+function reducer(state, action) {
+  if(!state) {
+    return {
+      themeColor: 'red'
+    }
+  }
+  switch (action.type) {
+    case 'CHANGE_COLOR':
+      return { ...state, themeColor: action.color}
+    default:
+      return state
+  }
+}
+
+// create store 
+function createStore(reducer) {
+  let state = null;
+  let listeners = [];
+
+  const getState = () => state;
+
+  const subscribe = (listener) => listeners.push(listener);
+
+  const dispatch = (action) => {
+    state = reducer(state, action)
+    listeners.forEach(listener => listener())
+  }
+
+  // init state 
+  dispatch({})
+
+  return { getState, subscribe, dispatch }
+}
+
+
+const store = createStore(reducer)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18,3 +69,7 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+
+appendRoot();
+render();

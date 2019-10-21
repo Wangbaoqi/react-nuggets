@@ -8,6 +8,7 @@ import './App.css';
 
 import CommentApp from '../reactStudy/comment/CommentApp'
 
+import ThemeIndex from '../reactStudy/redux/index'
 
 
 
@@ -128,7 +129,7 @@ export class App extends Component {
 
   // 验证context的类型
   static childContextTypes = {
-    theme: PropTypes.string
+    theme: PropTypes.string,
   }
 
 
@@ -141,7 +142,7 @@ export class App extends Component {
 
   // 父组件中声明 context 的值
   getChildContext() {
-    return { theme: this.state.containerColor }
+    return { theme: this.state.containerColor, }
   }
 
 
@@ -212,6 +213,9 @@ export class App extends Component {
 
         {/* 评论功能 */}
         <CommentApp/>
+
+
+        <ThemeIndex/>
       </div>
     );
   }
