@@ -1,29 +1,30 @@
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-
 
 
 import {store} from './store'
 
+import Provider from './provider'
 
-import Header from './header'
+
+// import Header from './header'
+// 将Header分成smart component 和 dumb component
+
+import Header from './containers/Header'
+
+
+
 import Content from './content'
 
 export class ThemeIndex extends Component {
-
-  static childContextTypes = {
-    store: PropTypes.object
-  }
-
-  getChildContext() {
-    return { store }
-  }
+  
   render() {
     return (
       <div>
-        <Header/>
-        <Content/>
+        <Provider store={store}>
+          <Header headerProps={'headerhhh'}/>
+          <Content/>
+        </Provider>
       </div>
     );
   }

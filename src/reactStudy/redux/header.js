@@ -2,46 +2,38 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types'
 
+import {connect} from './connect'
+
+
+
+// Header 组件变的高复用性 只接受props, 但是他不是一个 dumb component 通过connect跟store有联系 
+// 因此为了划分 smart component 和 dumb component，通常会将dumb放在 components folder中，smart放在 containers中
 
 export class Header extends Component {
 
-  static contextTypes = {
-    store: PropTypes.object
+  static propTypes = {
+    themeColor: PropTypes.string
   }
-
-  constructor() {
-    super()
-    this.state = {
-      themeColor: ''
-    }
-  }
-
-  componentWillMount() {
-    const { store, } = this.context
-
-    this._updateThemeState()
-    store.subscribe(() => this._updateThemeState())
-   
-  }
-  
-
-  _updateThemeState() {
-    const { store } = this.context
-
-    this.setState({
-      themeColor: store.getState().themeColor
-    })
-  }
-
 
   render() {
-    const { themeColor } = this.state
+    const { themeColor } = this.props
     return (
       <div>
-        <h1 style={{ color: themeColor }}>React-redux themeSwitch</h1>
+        <h1 style={{ color: themeColor }}>React-redux themeSwitch header</h1>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state, props) => {
+  return {
+    themeColor: state.themeColor,
+    ...props
+  }
+}
+
+Header = connect(mapStateToProps)(Header)
+
+
 
 export default Header;

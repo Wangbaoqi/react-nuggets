@@ -2,53 +2,26 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types'
 
+import { connect } from './connect'
+
 export class Theme extends Component {
 
-  static contextTypes = {
-    store: PropTypes.object
+  static propTypes = {
+    themeColor: PropTypes.string,
+    onSwitchColor: PropTypes.func
   }
-
-  constructor() {
-    super()
-    this.state = {
-      themeColor: ''
-    }
-  }
-
-
-
-  
-  componentWillMount() {
-    const { store, } = this.context
-
-    this._updateThemeState()
-    store.subscribe(() => this._updateThemeState())
-   
-  }
-  
-
-  _updateThemeState() {
-    const { store } = this.context
-
-    this.setState({
-      themeColor: store.getState().themeColor
-    })
-  }
-
 
   handleThemeColor(color) {
-    let { store } = this.context;
-
-    store.dispatch({
-      type: 'CHANGE_COLOR',
-      themeColor: color
-    })
+    let { onSwitchColor } = this.props;
+    if(onSwitchColor) {
+      onSwitchColor(color)
+    }
   }
   
 
 
   render() {
-    const { themeColor } = this.state
+    const { themeColor } = this.props
     return (
       <div >
         <button style={{ color: themeColor }} onClick={this.handleThemeColor.bind(this, 'red')}>Red</button>
@@ -57,5 +30,22 @@ export class Theme extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, props) => {
+  return {
+    themeColor: state.themeColor,
+    ...props
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSwitchColor: (color) => {
+      dispatch({ type: "CHANGE_COLOR", themeColor: color })
+    }
+  }
+}
+
+Theme = connect(mapStateToProps, mapDispatchToProps)(Theme)
 
 export default Theme;
