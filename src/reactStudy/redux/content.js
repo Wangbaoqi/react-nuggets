@@ -5,12 +5,10 @@ import { connect } from './connect'
 import Theme from './theme'
 export class Content extends Component {
 
-
   static propsTypes = {
     themeColor: PropTypes.string
   }
 
-  
   render() {
     const { themeColor } = this.props
     return (
