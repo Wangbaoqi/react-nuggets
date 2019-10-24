@@ -6,7 +6,10 @@ import PropTypes from 'prop-types';
 import logo from './logo.svg';
 import './App.css';
 
-import CommentApp from '../reactStudy/comment/CommentApp'
+// import CommentApp from '../reactStudy/comment/CommentApp'
+
+import CommentApp from '../reactStudy/comment/containers/CommentAppNew'
+
 
 import ThemeIndex from '../reactStudy/redux/index'
 
