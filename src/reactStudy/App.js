@@ -15,7 +15,6 @@ import ThemeIndex from '../reactStudy/redux/index'
 
 
 
-
 const ReactTitle = () => {
 
   return (
@@ -219,6 +218,10 @@ export class App extends Component {
 
 
         <ThemeIndex/>
+
+        {/* router */}
+        {/* <Simple/>
+        <RouterParam/> */}
       </div>
     );
   }
