@@ -49,6 +49,7 @@ class CommentInput extends Component {
       })
     }
   }
+  
 
   render() {
     const { userName = '' } = this.props

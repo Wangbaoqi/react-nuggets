@@ -21,7 +21,7 @@ export const connect = (mapStateToProps, mapDispatchToProps) => (WrappedComponen
     }
 
     constructor() {
-      super()
+      super();
       this.state ={
         allProps: {}
       }
